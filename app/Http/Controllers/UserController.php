@@ -17,16 +17,16 @@ class UserController extends Controller
         $users = User::where('parent_id', auth()->id())->get();
         return view('users.index', compact('users'));
     }
-    public function totalsale()
-    {
-        $sales = Sale::whereHas('user', function ($query) {
-            $query->where('parent_id', auth()->id());
-        })
-        ->groupBy('user_id')
-        ->get();
+    // public function totalsale()
+    // {
+    //     $sales = Sale::whereHas('user', function ($query) {
+    //         $query->where('parent_id', auth()->id());
+    //     })
+    //     ->groupBy('user_id')
+    //     ->get();
         
-        return response()->json($sales);
-    }
+    //     return response()->json($sales);
+    // }
     /**
      * Show the form for creating a new resource.
      */

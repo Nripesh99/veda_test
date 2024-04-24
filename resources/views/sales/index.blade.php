@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container mt-5">
-    <h2>Date Range Pickers</h2>
+    <h2  style="margin-top:7rem;" >Date Range Pickers</h2>
     <div class="row">
         <form action="{{ route('sales.dateFilter') }}" method="POST" class="row g-3">
             @csrf
@@ -14,7 +14,7 @@
                 <label for="endDate" class="form-label">End Date:</label>
                 <input type="date" class="form-control" id="endDate" name="endDate">
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 mb-4" style="margin-top:3rem;">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
@@ -42,8 +42,8 @@
             <tr>
                 <th scope="row">{{$sn}}</th>
                 <td>{{$sale["user_name"]}}</td>
-                <td>{{$sale["total"]}}</td>
-                <td>{{$sale["commission"]}}</td>
+                <td>Rs.{{$sale["total"]}}</td>
+                <td>Rs.{{$sale["commission"]}}</td>
                 @php $sn++ @endphp
             </tr>
             @endforeach

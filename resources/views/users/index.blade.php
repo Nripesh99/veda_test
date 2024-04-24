@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="container mt-5">
-    <h2>User List</h2>
+    <h2  style="margin-top:7rem;">User List </h2>
+<a href="{{route('users.add')}}" class="btn btn-primary">Add users</a>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -25,7 +26,7 @@
                     <form action="{{ route('users.destroy', $users->id) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                     </form>
                 </td>
             </tr>

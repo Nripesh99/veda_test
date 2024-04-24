@@ -42,10 +42,15 @@ Route::middleware('auth')->group(function () {
         
         //sales route
     Route::get('/sales', [SaleController::class, 'index'])->name('sales.index');
+    Route::get('/salesIndividual', [SaleController::class, 'indexIndividual'])->name('sales.individual');
+
     Route::get('/addSales', [SaleController::class, 'create'])->name('sales.create');
     Route::post('/addSales', [SaleController::class, 'store'])->name('sales.store');
     Route::get('/salesDate', [SaleController::class, 'viewDate'])->name('sales.viewDate');
     Route::post('/salesDate', [SaleController::class, 'dateFilter'])->name('sales.dateFilter');
+    Route::get('/sales/{id}/edit', [SaleController::class,'edit'])->name('sales.edit');
+    Route::put('sales/{id}', [SaleController::class, 'update'])->name('sales.update');
+    Route::delete('/sales/{id}', [SaleController::class,'destroy'])->name('sales.delete');   
 });
 
 require __DIR__ . '/auth.php';

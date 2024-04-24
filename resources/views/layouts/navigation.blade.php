@@ -28,7 +28,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: blueviolet;">
     <div class="container-fluid">
         <!-- Brand/logo -->
-        <a class="navbar-brand" href="{{ url('/home') }}">Your Brand</a>
+        <a class="navbar-brand" href="{{ url('/') }}">Veda</a>
 
         <!-- Toggle button for small screens -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -40,16 +40,17 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('sales.index') }}">My Sales</a>
+                    <a class="nav-link" href="{{ route('users.index') }}">Users</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Commission
+                        Sales
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">View Sales</a></li>
-                        <li><a class="dropdown-item" href="{{route('users.index')}}">View Users</a></li>
+                        <li><a class="dropdown-item" href="{{route('sales.create')}}">Add Sales</a></li>
+                        <li><a class="dropdown-item" href="{{route('sales.index')}}">Show Total Sales</a></li>
+                        <li><a class="dropdown-item" href="{{route('sales.individual')}}">Individual</a></li>
                     </ul>
                 </li>
             </ul>
@@ -67,7 +68,7 @@
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="POST" class="nav-link">
                             @csrf
-                            <button type="submit" class="btn btn-link">Logout</button>
+                            <button type="submit" class="nav-link">Logout</button>
                         </form>
                     </li>
                 @endguest

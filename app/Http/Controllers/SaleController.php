@@ -138,6 +138,13 @@ class SaleController extends Controller
 
         return view('sales.index', compact('sales'));
     }
+    public function indexIndividual(){
+        $sales =Sale::selectRaw('sales.amount, users.id, users.name')
+                ->join('users', 'users.id', '=', 'sales.user_id')
+                ->where('users.parent_id', '=', auth()->id())->get();
+        
+        return view('sales.individual',compact('sales'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -246,7 +253,9 @@ class SaleController extends Controller
      */
     public function edit(Sale $sale)
     {
-        //
+        $sale = Sale::findOrFail($sale->id);
+        dd($sale);
+        return view('sales.edit', compact('sale'));
     }
 
     /**
@@ -254,7 +263,27 @@ class SaleController extends Controller
      */
     public function update(Request $request, Sale $sale)
     {
-        //
+        $request->validate(
+            [
+                'amount' => 'required|numeric',
+            ]
+        );
+        $existingSale = Sale::find($sale->id);
+        if (!$existingSale) {
+            $notification = array(
+                'message' => 'Sales item not found',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }else{
+            $existingSale->amount = $request->amount;
+        $existingSale->save();
+        $notification = array(
+            'message' => 'Amount  updated successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('sales.index')->with($notification);
+        }
     }
 
     /**
@@ -262,6 +291,11 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
-        //
+        $sale->delete();
+        $notification = array(
+            'message' => 'Deleted  sale succesfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('sales.index')->with($notification);
     }
 }

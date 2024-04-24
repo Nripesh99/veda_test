@@ -5,9 +5,9 @@
     <div class="container-fluid mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8 ">
-                <div class="card">
+                <div class="card"  >
 
-                    <h1 >Add User</h1>
+                    <h1  style="margin-top:7rem;" class="mx-3">Add User</h1>
                     <div class="card-body">
                         <form method="POST" action="{{route('users.add')}}" enctype="multipart/form-data">
                             @csrf
@@ -64,9 +64,9 @@
 
                             <!-- Parent ID -->
                             @if(auth()->check())
-                                <input type="text" name="parent_id" value="{{ auth()->id() }}">
+                                <input type="hidden" name="parent_id" value="{{ auth()->id() }}">
                             @else
-                                <input type="text" name="parent_id" value="0">
+                                <input type="hidden" name="parent_id" value="0">
                             @endif
                             <br>
                             <div class="d-flex justify-content-center">
