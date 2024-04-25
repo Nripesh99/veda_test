@@ -61,8 +61,10 @@ class SaleController extends Controller
     // }
     public function indexApi()
     {
-        $sales = Sale::selectRaw('SUM(sales.amount) as total, sales.user_id')
-        // ->with('users')
+        $sales = Sale::selectRaw('SUM(sales.amount) as total, sales.user_id, users.name as user_name')
+        // ->with('user')
+        ->join('users', 'users.id', '=', 'sales.user_id')
+
          -> groupBy('sales.user_id')
        ->get()->toArray();
        $totalCommission = 0;

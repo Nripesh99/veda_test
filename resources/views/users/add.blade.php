@@ -1,15 +1,15 @@
 @extends('layouts.app')
 @section('content')
-<style>
-</style>
+    <style>
+    </style>
     <div class="container-fluid mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8 ">
-                <div class="card"  >
+                <div class="card">
 
-                    <h1  style="margin-top:7rem;" class="mx-3">Add User</h1>
+                    <h1 style="margin-top:7rem;" class="mx-3">Add User</h1>
                     <div class="card-body">
-                        <form method="POST" action="{{route('users.add')}}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('users.add') }}" enctype="multipart/form-data">
                             @csrf
                             <!-- Image Upload -->
                             <div class="mb-3">
@@ -20,7 +20,8 @@
                             <!-- Name -->
                             <div class="mb-3">
                                 <label for="name" class="form-label">{{ __('Name') }}</label>
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus autocomplete="name">
+                                <input id="name" type="text" class="form-control" name="name"
+                                    value="{{ old('name') }}" required autofocus autocomplete="name">
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -31,7 +32,8 @@
                             <!-- Email Address -->
                             <div class="mb-3">
                                 <label for="email" class="form-label">{{ __('Email') }}</label>
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control" name="email"
+                                    value="{{ old('email') }}" required autocomplete="email">
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -40,20 +42,24 @@
                             </div>
 
                             <!-- Password -->
+                            <!-- Password -->
                             <div class="mb-3">
                                 <label for="password" class="form-label">{{ __('Password') }}</label>
-                                <input id="password" type="password" class="form-control" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control" name="password" required
+                                    autocomplete="new-password">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
+                            <span id="message"></span>
 
                             <!-- Confirm Password -->
                             <div class="mb-3">
                                 <label for="password_confirmation" class="form-label">{{ __('Confirm Password') }}</label>
-                                <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password_confirmation" type="password" class="form-control" name="cPassword"
+                                    onkeyup="validatePassword()" required autocomplete="new-password">
                                 @error('password_confirmation')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -62,8 +68,9 @@
                             </div>
 
 
+
                             <!-- Parent ID -->
-                            @if(auth()->check())
+                            @if (auth()->check())
                                 <input type="hidden" name="parent_id" value="{{ auth()->id() }}">
                             @else
                                 <input type="hidden" name="parent_id" value="0">
@@ -71,7 +78,7 @@
                             <br>
                             <div class="d-flex justify-content-center">
 
-                                <button class="btn btn-primary "  type="submit">Submit</button>
+                                <button class="btn btn-primary " id="submit" type="submit" disabled>Submit</button>
                             </div>
                         </form>
                     </div>
@@ -79,5 +86,23 @@
             </div>
         </div>
     </div>
-</div>
+    </div>
+    <script>
+         function validatePassword() {
+        var password = $("#password").val();
+        var confirmPassword = $("#password_confirmation").val();
+        var submitButton = $("#submit");
+
+        if (password == "" || confirmPassword == "") {
+            $("#message").html("Can't be empty").css("color", "red");
+            submitButton.prop("disabled", true);
+        } else if (password == confirmPassword) {
+            $("#message").html("Matching").css("color", "green");
+            submitButton.prop("disabled", false);
+        } else {
+            $("#message").html("Not Matching").css("color", "red");
+            submitButton.prop("disabled", true);
+        }
+    }
+    </script>
 @endsection
